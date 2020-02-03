@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+	<head>
+		<meta charset = "utf-8">
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1">
+		<title>blog-1</title>
+		<style>
+			body {
+				width: 82%;
+				margin: 1em auto;
+				background: #ececec;
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+				line-height: 1.5;
+				font-size: 18px;
+			}
+			.step {
+				background: #fafafa;
+				margin: 1em;
+				padding: 1em;
+				border: 1px solid #e0e0e0;
+				border-radius: 4px;
+			}
+			code {
+				background: #e0e0e0;
+				padding: .2em .5em .2em .5em;
+			}
+			h3 {
+				margin-bottom: 0;
+				padding-bottom: 0;
+			}
+			p:first-child {
+				padding-top: 0;
+				margin-top: 0;
+			}
+			img {
+				width: 100%;
+				height: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Your blog content goes here-->
+		<!-- Don't forget to change the page title -->
+		<!-- You can wrap your steps in a <div> with a class of .step for basic styles-->
+		<!-- Feel free to change the styles as you see fit-->
+		<!-- Please use <pre> and <code> tags properly for commands and code-->
+    	<!-- Please delete these comments in your posts :) -->
+		<div class = "step">
+			<h1>How to set up your workspace on our LAMP Droplet</h1>
+			<p>This blog post will describe how to personalize your workspace to be a little more usable on our shared LAMP Droplet. This tutorial does not cover everything, just things that I have personally done to make my workspace better.</p>
+			<p>To follow this tutorial, you should have already logged into the Droplet at 64.227.19.180 through either PuTTY or SSH with your account for the server.</p>
+		</div>
+		<div class = "step">
+			<h3>Step 1: Change your password</h3><hr>
+			<p>Before you do anything else, you should change your password so someone can't impersonate you using the <b>publicly accessible</b> password for your account. In the terminal, type:</p>
+			<pre><code>$ passwd</code></pre>
+			<p>It will ask for your current password, then it will ask you to type in a new password and then retype the same password. Choose a password that is different from your other passwords, as this server is not particularly secure!</p>
+		</div>
+		<div class = "step">
+			<h3>Step 2: Create a directory for your HTML documents</h3><hr>
+			<p>First, you need to move to the html folder. Type:</p>
+			<pre><code>$ cd ../../var/www/html</code></pre>
+			<p>This command simply moves you back two folders and then moves you into var, then www, then finally html. To create a new folder, use the proj.sh script already available to you.</p>
+			<pre><code>$ sudo proj.sh</code></pre>
+			<p>Now, rename the folder.</p>
+			<pre><code>$ sudo mv new-project &lt;your username/whatever folder name you'd like&gt;</pre></code>
+		</div>
+		<div class = "step">
+			<h3>Step 3: Make that directory yours</h3><hr>
+			<pre><code>$ ls -la</pre></code>
+			<p>Notice under owner and group for the folder you just made it says root for both? That's because you used root to get permission to create the folders using proj.sh. To make it easier to work with, change the owner and group to your account by typing:</p>
+			<pre><code>$ sudo -R chown &lt;your username&gt;:&lt;your username&gt; &lt;whatever you renamed the folder to&gt;</pre></code>
+			<p>This command recursively (-R) changes the owner and group (owner:group) of the folder specified. This allows you to do things like making directories without using the sudo command.</p>
+		</div>
+		<div class = "step">
+			<h3>(Optional) Step 4: Personalize your VIM profile</h3><hr>
+			<p>Nano has been recommended for this class because it displays the commands on screen. If you want something more powerful, I recommend VIM. There are a few things you will need to understand and a few commands you will need to memorize. Navigate into the folder you created and then type:</p>
+			<pre><code>$ vim index.html</code></pre>
+			<p>Now you are in VIM. Use the arrow keys to navigate the file. However, you won't be able to edit it yet! That is because you are "command mode" or "normal mode." In the bottom left, you will see no text appear. In this mode, you can type <code>:</code> to begin a command. <code>:q</code> will quit VIM, <code>:w</code> will save changes, <code>:wq</code> will save your changes and quit, and <code>:q!</code> will quit without saving any changes.</p>
+			<p>To edit the file, you must enter "insert mode." While in "command mode" hit <code>i</code>. Now, in the bottom left, you will see "-- INSERT --" which tells you that you are in insert mode. Now you can type into the file. To go back to "command mode" hit the escape key. While in insert mode, you won't be able to do any commands.</p>
+			<p>This is all you need to know how to use VIM! Now to customize it. <code>:q</code> out of the file. Now go in to your VIM profile by typing:</p>
+			<pre><code>vim ~/.vimrc</code></pre>
+			<p>In this file, you can store all your settings for VIM that apply every time you use it. Here are my suggested ones:</p>
+			<pre><ul>
+			<li><code>set tabstop=4</code></li>
+			<li><code>set autoindent</code></li>
+			<li><code>syntax on</code></li>
+			<li><code>colorscheme slate</code></li>
+			</ul></pre>
+			<p>Tabstop determines the length of a tab. Autoindent mkes it so when you hit enter, it automatically indents to the indent of the previous line. Syntax turns on syntax highlighting. Colorscheme determines the color scheme of VIM, and there are mny to choose from. I suggest slate for HTML, however you can see all the schemes available to you by entering vim and typing <code>:colorscheme </code> (don't forget the space!) and then hitting tab multiple times.</p>
+		</div>
+	</body>
+</html>
